@@ -1,9 +1,12 @@
-class Event_System:
-    def subscribe(self):
-        pass
+class EventSystem:
+    def __init__(self):
+        self.listeners = {}
 
-    def unsubscrobe(self):
-        pass
+    def subscribe(self, eventName, listener):
+        self.listeners.update({eventName: listener})
 
-    def emit(self):
+    def unsubscrobe(self, eventName, listener):
+        self.listeners.popitem({{eventName: listener}})
+
+    def emit(self, eventName, data):
         pass
