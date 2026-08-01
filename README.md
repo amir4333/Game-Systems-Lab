@@ -20,14 +20,26 @@ I started this project because I wanted more than just making games. I wanted to
 
 ## planned systems
 
-- Inventory
-- Save & Load
-- Farming
-- Crafting
-- Quest
-- Dialogue
-- AI
-- Pathfinding
+1. ✅ Inventory
+
+2. Event System
+
+3. Dialogue System
+
+4. Quest System
+
+5. Save/Load
+
+6. Finite State Machine (FSM)
+
+7. Grid System
+
+8. A* Pathfinding
+
+9. Behavior Tree
+
+10. Skill System
+
 
 ## Technologies
 
