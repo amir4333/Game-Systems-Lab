@@ -55,3 +55,8 @@ I started this project because I wanted more than just making games. I wanted to
 Every system should be reusable, understandable, and independent.
 
 
+## Progress
+
+- ✅ Inventory
+- ✅ Event System
+- ⏳ Dialogue System
