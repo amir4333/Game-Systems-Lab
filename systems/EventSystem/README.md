@@ -34,12 +34,25 @@ The Event System contains three main parts:
 
 ## Example
 
-A player picks up an item:
+```text
+Player picks up an item
 
-Player
-→ ItemPickedUp Event
-→ Event Manager
-→ Inventory / UI / Quest System
+↓
+
+Event System receives "item_added"
+
+↓
+
+Inventory updates
+
+↓
+
+UI updates
+
+↓
+
+Quest System checks progress
+```
 
 ## Future Improvements
 
