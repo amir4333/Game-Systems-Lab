@@ -3,10 +3,19 @@ class EventSystem:
         self.listeners = {}
 
     def subscribe(self, eventName, listener):
-        self.listeners.update({eventName: listener})
+        if eventName in self.listeners:
+            if listener not in self.listeners[eventName]:
+                self.listeners[eventName].append(listener)
+                return
+        
+        self.listeners.update({eventName: [listener]})
 
-    def unsubscrobe(self, eventName, listener):
-        self.listeners.popitem({{eventName: listener}})
+    def unsubscribe(self, eventName, listener):
+        if eventName in self.listeners:
+            if listener in self.listeners[eventName]:
+                self.listeners[eventName].remove(listener)
 
     def emit(self, eventName, data):
-        pass
+        if eventName in self.listeners:
+            for listener in self.listeners[eventName]:
+                listener(data)
