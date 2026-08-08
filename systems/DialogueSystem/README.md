@@ -6,23 +6,26 @@ This project is part of **Game-Systems-Lab**, a collection of reusable game syst
 
 ## Goal
 
-* Learn how dialogue systems work internally.
-* Design a reusable dialogue architecture instead of creating one for a specific game.
+* Understand how dialogue systems work internally.
+* Learn how branching conversations are structured.
 * Practice object-oriented design and tree-based data structures.
-* Build a flexible foundation that can be extended with conditions, quests, localization, and other dialogue features in the future.
+* Build a reusable dialogue system that can be used in future game projects.
 
 ## Features
 
 * Dialogue nodes
 * Dialogue choices
-* Branching conversations
-* Reusable architecture
-* Demo project for testing
+* Branching dialogue flow
+* Current dialogue state management
+* Choice selection system
+* Dialogue completion detection
+* Separated dialogue content from dialogue logic
+* Demo dialogue runner for testing
 
 ## Project Structure
 
 ```text
-dialogue_system/
+DialogueSystem/
 │
 ├── DialogueNode.py
 ├── DialogueChoice.py
@@ -31,27 +34,60 @@ dialogue_system/
 └── README.md
 ```
 
+## How it works
+
+The dialogue system uses a node-based structure.
+
+Each `DialogueNode` contains:
+
+* Dialogue text
+* Available choices
+
+Each `DialogueChoice` contains:
+
+* Choice text
+* Reference to the next dialogue node
+
+The `DialogueSystem` manages the current node and moves through the dialogue tree based on player choices.
+
+Example:
+
+```
+              Hello!
+                 |
+        ----------------
+        |              |
+    Who are you?   Goodbye
+        |
+        ↓
+   I am the guard.
+```
+
 ## Current Version
 
-This is the first version of the system.
+The first version of the system is complete.
 
 Currently supported:
 
-* Basic dialogue nodes
-* Dialogue choices
-* Branching dialogue flow
+* Creating dialogue trees
+* Moving between dialogue nodes
+* Selecting player choices
+* Detecting the end of a conversation
+* Running a simple console-based dialogue demo
 
-Planned improvements:
+## Future Improvements
 
-* Conditional dialogues
+Possible future extensions:
+
+* Dialogue conditions
+* Event triggers
 * Quest integration
-* Events
-* Dialogue serialization (JSON)
-* Localization support
-* Save & load dialogue state
+* Save and load dialogue state
+* Dialogue localization
+* Loading dialogues from external files (JSON)
 
 ## Why did I start this project?
 
-Most games use dialogue systems, but I wanted to understand how they are designed internally rather than simply using an existing engine implementation.
+Most games use dialogue systems, but I wanted to understand how they are designed internally instead of only using existing implementations.
 
-The goal of this project is to learn the architecture behind dialogue systems by building one from scratch, making it reusable for future projects.
+The goal of this project is to learn the architecture behind dialogue systems by building one from scratch and making it reusable for future projects.
