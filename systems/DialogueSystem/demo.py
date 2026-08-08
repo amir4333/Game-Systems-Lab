@@ -55,7 +55,7 @@ while True:
         print(f"{i}: {choice.text}")
 
     choosed_correct = False
-    while choosed_correct:
+    while not choosed_correct:
         selected = int(input("> "))
         
         if 0 <= selected < len(dialogue.current_node.choices):
