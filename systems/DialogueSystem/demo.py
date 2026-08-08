@@ -54,6 +54,12 @@ while True:
     for i, choice in enumerate(dialogue.current_node.choices):
         print(f"{i}: {choice.text}")
 
-    selected = int(input("> "))
-
-    dialogue.choose(selected)
+    choosed_correct = False
+    while choosed_correct:
+        selected = int(input("> "))
+        
+        if 0 <= selected < len(dialogue.current_node.choices):
+            dialogue.choose(selected)
+            choosed_correct = True
+        else:
+            print("Invalid choice")
