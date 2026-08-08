@@ -44,14 +44,16 @@ dialogue = DialogueSystem(start_node)
 
 
 # Testing
-print(dialogue.current_node.text)
+while True:
 
-for index, choice in enumerate(dialogue.current_node.choices):
-    print(index, choice.text)
+    print("\n" + dialogue.current_node.text)
 
+    if dialogue.is_finished():
+        break
 
-# Player chooses first option
-dialogue.choose(0)
+    for i, choice in enumerate(dialogue.current_node.choices):
+        print(f"{i}: {choice.text}")
 
-print("\nAfter choosing:")
-print(dialogue.current_node.text)
+    selected = int(input("> "))
+
+    dialogue.choose(selected)
