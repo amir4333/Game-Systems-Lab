@@ -1,62 +1,52 @@
-This repository contains a library of game mechanics which i developed and collected myself.
-
+This repository contains a collection of reusable game systems and mechanics that I developed myself.
 
 ## Goals
 
-1. developing reusable mechanics.
-2. learning a lot of game mechanics deep enough for better undrestanding of developing games.
-3. building new systems and expand them.
-4. document my game mechanics.
-5. use my mechanics in my future projects.
-
+1. Developing reusable mechanics.
+2. Understanding game systems deeply by building them from scratch.
+3. Designing independent and expandable systems.
+4. Documenting my learning process and implementations.
+5. Using these systems in future game projects.
 
 ## Why did I start this project?
 
-I started this project because I wanted more than just making games. I wanted to understand how game systems work behind the scenes. Instead of rebuilding the same mechanics for every project, I decided to create a personal collection of reusable systems that I can improve and use in future games.
+I started this project because I wanted more than just making games. I wanted to understand how game systems work behind the scenes.
 
-## Current Progress
+Instead of rebuilding the same mechanics for every project, I decided to create a personal collection of reusable systems that I can improve and use in future games.
 
-- Inventory System (In Progress)
+## Progress
 
-## planned systems
+- ✅ Inventory System
+- ✅ Event System
+- ✅ Dialogue System
+- ⏳ Quest System
 
-1. ✅ Inventory
+## Planned Systems
 
-2. Event System
-
-3. Dialogue System
-
-4. Quest System
-
-5. Save/Load
-
-6. Finite State Machine (FSM)
-
-7. Grid System
-
-8. A* Pathfinding
-
-9. Behavior Tree
-
-10. Skill System
-
+1. Quest System
+2. Save/Load System
+3. Finite State Machine (FSM)
+4. Grid System
+5. A* Pathfinding
+6. Behavior Tree
+7. Skill System
 
 ## Technologies
 
 - Python
-
 - Pygame
-
 - Git
-
 
 ## Project Philosophy
 
-Every system should be reusable, understandable, and independent.
+Every system should be:
+- Reusable
+- Understandable
+- Independent
+- Easy to extend
 
+## Design Principles
 
-## Progress
-
-- ✅ Inventory
-- ✅ Event System
-- ⏳ Dialogue System
+- Separating game systems from game content.
+- Learning architecture by building systems from scratch.
+- Focusing on clean and maintainable designs.
