@@ -6,6 +6,6 @@ class Quest:
 
     def is_complete(self):
         for objective in self.objectives:
-            if not objective.is_compleate():
+            if not objective.is_complete():
                 return False
         return True

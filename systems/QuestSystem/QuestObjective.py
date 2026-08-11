@@ -4,10 +4,8 @@ class QuestObjective:
         self.amount = amount
         self.progress = 0
 
-    def add_progress(self):
-        self.progress += 1
+    def add_progress(self, amount=1):
+        self.progress += amount
 
     def is_completed(self):
-        if self.progress >= self.amount:
-            return True
-        return False
+        return self.progress >= self.amount
