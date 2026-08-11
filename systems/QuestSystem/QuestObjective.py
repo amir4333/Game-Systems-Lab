@@ -6,3 +6,8 @@ class QuestObjective:
 
     def add_progress(self):
         self.progress += 1
+
+    def is_completed(self):
+        if self.progress >= self.amount:
+            return True
+        return False
