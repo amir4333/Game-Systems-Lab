@@ -13,6 +13,6 @@ class QuestSystem:
             return
 
     def update(self):
-        for quest in (self.active_quests):
+        for quest in self.active_quests[:]:
             if quest.is_complete():
                 self.remove_quest(quest)
