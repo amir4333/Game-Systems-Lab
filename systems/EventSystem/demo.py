@@ -1,4 +1,4 @@
-from EventSystem import EventSystem
+from .EventSystem import EventSystem
 
 event_system = EventSystem()
 

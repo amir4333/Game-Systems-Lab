@@ -1,4 +1,4 @@
-from InventorySlot import InventorySlot
+from .InventorySlot import InventorySlot
 
 class Inventory:
     def __init__(self):
