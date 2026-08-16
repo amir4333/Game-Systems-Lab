@@ -7,10 +7,8 @@ from systems.DialogueSystem.DialogueSystem import DialogueSystem
 from systems.DialogueSystem.DialogueChoice import DialogueChoice
 from systems.DialogueSystem.DialogueNode import DialogueNode
 
-inventory = Inventory([])
-quest_system = QuestSystem([])
 
-#-------------------------------------------------------------------
+#------------------------------------------------------------- Contents --------------------------------------------------------------
 # Dialogues
 
 print("You are standing in front of the city gate.")
@@ -22,7 +20,7 @@ goodbye_node = DialogueNode(
 )
 
 # Accepting quest
-accept_quest = DialogueSystem(
+accept_quest = DialogueNode(
     "Thank you. Bring it back to me when you find it.",
     []
 )
@@ -43,17 +41,16 @@ start_node = DialogueSystem(
     ]
 )
 
-dialogue = DialogueSystem(start_node)
 
-#------------------------------------------------------------------------
-# Creating quest
+
+#-------------------------------------------------------------------------------------------------------------------------------------
 
 # -------------------------
 # Create Objectives
 # -------------------------
 
 Find_the_Lost_Sword = QuestObjective(
-    "Talk to the farmer",
+    "Find the Lost Sword",
     1
 )
 
@@ -69,4 +66,38 @@ farmer_quest = Quest(
         Find_the_Lost_Sword
     ]
 )
+
+
+#------------------------------------------------------------- States ----------------------------------------------------------------
+inventory = Inventory([])
+quest_system = QuestSystem([])
+dialogue = DialogueSystem(start_node)
+
+
+#------------------------------------------------------------- Brain -----------------------------------------------------------------
+
+# Dialogues
+def dialogue_while():
+    while True:
+
+        print("\n" + dialogue.current_node.text)
+
+        if dialogue.is_finished():
+            break
+
+        for i, choice in enumerate(dialogue.current_node.choices):
+            print(f"{i}: {choice.text}")
+
+        choosed_correct = False
+        while not choosed_correct:
+            selected = int(input("> "))
+            
+            if 0 <= selected < len(dialogue.current_node.choices):
+                dialogue.choose(selected)
+                choosed_correct = True
+            else:
+                print("Invalid choice")
+
+def explore(event):
+    print()
 
