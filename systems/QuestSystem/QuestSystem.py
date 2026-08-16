@@ -12,7 +12,9 @@ class QuestSystem:
 
     def remove_quest(self, quest):
         if quest in self.active_quests:
+            self.all_quests.remove(quest)
             self.active_quests.remove(quest)
+            self.completed_quests.remove(quest)
 
     def send_to_completed(self, quest):
         if quest in self.active_quests:
