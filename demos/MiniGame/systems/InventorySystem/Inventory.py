@@ -1,8 +1,8 @@
 from .InventorySlot import InventorySlot
 
 class Inventory:
-    def __init__(self):
-        self.slots = []
+    def __init__(self, start_items=[]):
+        self.slots = start_items
     
     def add_item(self, item, quantity=1):
         slot = self.get_slot(item)
