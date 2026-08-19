@@ -9,6 +9,75 @@ from systems.DialogueSystem.DialogueNode import DialogueNode
 
 
 #------------------------------------------------------------- Contents --------------------------------------------------------------
+
+
+# -------------------------
+# Objectives
+# -------------------------
+
+find_lost_sword = QuestObjective(
+    "Find the Lost Sword",
+    1
+)
+
+
+# -------------------------
+# Quest
+# -------------------------
+
+lost_sword_quest = Quest(
+    "The Lost Sword",
+    "Find the guard's lost sword and bring it back.",
+    [
+        find_lost_sword
+    ]
+)
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------
+
+# Items
+sword = Item("sword", False)
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------
+
+def start_quest(quest):
+    quest_system.add_quest(quest)
+    print("quest started!")
+
+def explore():
+    input("> explore")
+    print("you found a sword!")
+    inventory.add_item(sword)
+    find_lost_sword.add_progress()
+
+def end_quest():
+    quest_system.update()
+    input("quest ended.(push any button)")
+
+def show_quests():
+    print("\n========== QUESTS ==========")
+
+    print("\nActive Quests:")
+    if not quest_system.active_quests:
+        print("  No active quests.")
+    else:
+        for quest in quest_system.active_quests:
+            print(f"  - {quest.name}")
+
+    print("\nCompleted Quests:")
+    if not quest_system.completed_quests:
+        print("  No completed quests.")
+    else:
+        for quest in quest_system.completed_quests:
+            print(f"  - {quest.name}")
+
+    print("\n============================")
+
+
+#-------------------------------------------------------------------------------------------------------------------------------------
+
 # Dialogues
 
 print("You are standing in front of the city gate.")
@@ -25,15 +94,17 @@ accept_quest = DialogueNode(
     []
 )
 
-guard_continius = DialogueSystem(
+# Start quest dialogue
+guard_continius = DialogueNode(
     "My sword was stolen and I think the thief took it into the forest.",
     [
-        DialogueChoice("I'll find it.",),
-        DialogueChoice("Maybe later.",goodbye_node)
+        DialogueChoice("I'll find it.", accept_quest),
+        DialogueChoice("Maybe later.", goodbye_node)
     ]
 )
 
-start_node = DialogueSystem(
+# Start node
+start_node = DialogueNode(
     "Hey! You there. I need your help.",
     [
         DialogueChoice("I can help. What happened?",guard_continius),
@@ -42,33 +113,8 @@ start_node = DialogueSystem(
 )
 
 
-
-#-------------------------------------------------------------------------------------------------------------------------------------
-
-# -------------------------
-# Create Objectives
-# -------------------------
-
-Find_the_Lost_Sword = QuestObjective(
-    "Find the Lost Sword",
-    1
-)
-
-
-# -------------------------
-# Create Quest
-# -------------------------
-
-farmer_quest = Quest(
-    "The Lost Sword",
-    "Find the guard's lost sword and bring it back.",
-    [
-        Find_the_Lost_Sword
-    ]
-)
-
-
 #------------------------------------------------------------- States ----------------------------------------------------------------
+
 inventory = Inventory([])
 quest_system = QuestSystem([])
 dialogue = DialogueSystem(start_node)
@@ -88,16 +134,25 @@ def dialogue_while():
         for i, choice in enumerate(dialogue.current_node.choices):
             print(f"{i}: {choice.text}")
 
-        choosed_correct = False
-        while not choosed_correct:
+        answered_right = False
+        while not answered_right:
             selected = int(input("> "))
             
             if 0 <= selected < len(dialogue.current_node.choices):
                 dialogue.choose(selected)
-                choosed_correct = True
+                answered_right = True
             else:
                 print("Invalid choice")
 
-def explore(event):
-    print()
 
+#------------------------------------------------------------- Main functions --------------------------------------------------------
+
+show_quests()
+dialogue_while()
+
+start_quest(lost_sword_quest)
+show_quests()
+
+explore()
+end_quest()
+show_quests()
