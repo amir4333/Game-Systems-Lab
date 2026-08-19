@@ -6,6 +6,7 @@ from systems.QuestSystem.Quest import Quest
 from systems.DialogueSystem.DialogueSystem import DialogueSystem
 from systems.DialogueSystem.DialogueChoice import DialogueChoice
 from systems.DialogueSystem.DialogueNode import DialogueNode
+from systems.EventSystem.EventSystem import EventSystem
 
 
 #------------------------------------------------------------- Contents --------------------------------------------------------------
