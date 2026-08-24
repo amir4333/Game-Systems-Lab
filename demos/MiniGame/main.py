@@ -11,7 +11,7 @@ from systems.EventSystem.EventSystem import EventSystem
 
 #------------------------------------------------------------- Contents --------------------------------------------------------------
 
-ITEM_ADDED = "item_added"
+EXPLORE_ENDED = "explore_ended"
 
 
 # -------------------------
@@ -41,7 +41,7 @@ lost_sword_quest = Quest(
 
 # Items
 sword = Item("sword", False)
-
+apple = Item("apple")
 
 #-------------------------------------------------------------------------------------------------------------------------------------
 # Functions
@@ -56,11 +56,10 @@ def explore():
     input("> you found an item!")
     input("> its a sword!")
 
-    inventory.add_item(sword)
-
     event_system.emit(
-        ITEM_ADDED,
+        EXPLORE_ENDED,
         {
+            "item": sword,
             "count": 1
         }
     )
@@ -133,9 +132,21 @@ quest_system = QuestSystem([])
 dialogue = DialogueSystem(start_node)
 event_system = EventSystem()
 
+#------------------------------------------------------------- Listener --------------------------------------------------------------
+
+def inventory_listener(data):
+    inventory.add_item(data["item"], data["count"])
+
+def quest_listener(data):
+    if data["item"] == sword:
+        find_lost_sword.add_progress()
+
+
 #------------------------------------------------------------- Events ----------------------------------------------------------------
 
-event_system.subscribe(item_adDEDded, find_lost_sword.add_progress)
+event_system.subscribe(EXPLORE_ENDED, inventory_listener)
+event_system.subscribe(EXPLORE_ENDED, quest_listener)
+
 
 #------------------------------------------------------------- Brain -----------------------------------------------------------------
 
