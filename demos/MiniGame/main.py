@@ -1,3 +1,4 @@
+from functools import partial
 from systems.InventorySystem.Inventory import Inventory
 from systems.InventorySystem.Item import Item
 from systems.QuestSystem.QuestObjective import QuestObjective
@@ -8,10 +9,16 @@ from systems.DialogueSystem.DialogueChoice import DialogueChoice
 from systems.DialogueSystem.DialogueNode import DialogueNode
 from systems.EventSystem.EventSystem import EventSystem
 
+#------------------------------------------------------------- States ----------------------------------------------------------------
+
+inventory = Inventory([])
+quest_system = QuestSystem([])
+event_system = EventSystem()
 
 #------------------------------------------------------------- Contents --------------------------------------------------------------
 
 EXPLORE_ENDED = "explore_ended"
+START_QUEST = "start_quest"
 
 
 # -------------------------
@@ -47,9 +54,14 @@ apple = Item("apple")
 # Functions
 
 def start_quest(quest):
-    input("> quest started!")
+    event_system.emit(
+        START_QUEST,
+        {
+            "quest": quest
+        }
+    )
 
-    quest_system.add_quest(quest)
+    input("> quest started!")
 
 def explore():
     input("> explore")
@@ -110,7 +122,7 @@ accept_quest = DialogueNode(
 guard_continius = DialogueNode(
     "My sword was stolen and I think the thief took it into the forest.",
     [
-        DialogueChoice("I'll find it.", accept_quest),
+        DialogueChoice("I'll find it.", accept_quest, partial(start_quest, lost_sword_quest)),
         DialogueChoice("Maybe later.", goodbye_node)
     ]
 )
@@ -124,13 +136,7 @@ start_node = DialogueNode(
     ]
 )
 
-
-#------------------------------------------------------------- States ----------------------------------------------------------------
-
-inventory = Inventory([])
-quest_system = QuestSystem([])
 dialogue = DialogueSystem(start_node)
-event_system = EventSystem()
 
 #------------------------------------------------------------- Listener --------------------------------------------------------------
 
@@ -141,11 +147,17 @@ def quest_listener(data):
     if data["item"] == sword:
         find_lost_sword.add_progress()
 
+def quest_start_listener(data):
+    if data["quest"] == lost_sword_quest:
+        quest_system.add_quest(data["quest"])
+
 
 #------------------------------------------------------------- Events ----------------------------------------------------------------
 
 event_system.subscribe(EXPLORE_ENDED, inventory_listener)
 event_system.subscribe(EXPLORE_ENDED, quest_listener)
+
+event_system.subscribe(START_QUEST, quest_start_listener)
 
 
 #------------------------------------------------------------- Brain -----------------------------------------------------------------
@@ -175,12 +187,8 @@ def dialogue_while():
 
 #------------------------------------------------------------- Main ------------------------------------------------------------------
 
-show_quests()
-dialogue_while()
 
-start_quest(lost_sword_quest)
-show_quests()
+if dialogue_while():
+    explore()
 
-explore()
-end_quest()
-show_quests()
+    end_quest()
