@@ -22,7 +22,7 @@ START_QUEST = "start_quest"
 
 
 # -------------------------
-# Objectives
+# Objectives 
 # -------------------------
 
 find_lost_sword = QuestObjective(
