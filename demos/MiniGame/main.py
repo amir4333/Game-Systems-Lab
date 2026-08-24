@@ -11,6 +11,8 @@ from systems.EventSystem.EventSystem import EventSystem
 
 #------------------------------------------------------------- Contents --------------------------------------------------------------
 
+ITEM_ADDED = "item_added"
+
 
 # -------------------------
 # Objectives
@@ -42,20 +44,31 @@ sword = Item("sword", False)
 
 
 #-------------------------------------------------------------------------------------------------------------------------------------
+# Functions
 
 def start_quest(quest):
+    input("> quest started!")
+
     quest_system.add_quest(quest)
-    print("quest started!")
 
 def explore():
     input("> explore")
-    print("you found a sword!")
+    input("> you found an item!")
+    input("> its a sword!")
+
     inventory.add_item(sword)
-    find_lost_sword.add_progress()
+
+    event_system.emit(
+        ITEM_ADDED,
+        {
+            "count": 1
+        }
+    )
 
 def end_quest():
     quest_system.update()
-    input("quest ended.(push any button)")
+
+    input("> quest ended.(push any button)")
 
 def show_quests():
     print("\n========== QUESTS ==========")
@@ -75,7 +88,6 @@ def show_quests():
             print(f"  - {quest.name}")
 
     print("\n============================")
-
 
 #-------------------------------------------------------------------------------------------------------------------------------------
 
@@ -119,7 +131,11 @@ start_node = DialogueNode(
 inventory = Inventory([])
 quest_system = QuestSystem([])
 dialogue = DialogueSystem(start_node)
+event_system = EventSystem()
 
+#------------------------------------------------------------- Events ----------------------------------------------------------------
+
+event_system.subscribe(item_adDEDded, find_lost_sword.add_progress)
 
 #------------------------------------------------------------- Brain -----------------------------------------------------------------
 
@@ -146,7 +162,7 @@ def dialogue_while():
                 print("Invalid choice")
 
 
-#------------------------------------------------------------- Main functions --------------------------------------------------------
+#------------------------------------------------------------- Main ------------------------------------------------------------------
 
 show_quests()
 dialogue_while()
