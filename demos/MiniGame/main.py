@@ -64,9 +64,12 @@ def start_quest(quest):
     input("> quest started!")
 
 def explore():
-    input("> explore")
-    input("> you found an item!")
-    input("> its a sword!")
+    input("\n> explore")
+
+    print("\nYou walk into the forest...")
+    input("Press Enter to continue...")
+
+    print("\nYou found: Sword")
 
     event_system.emit(
         EXPLORE_ENDED,
@@ -79,26 +82,30 @@ def explore():
 def end_quest():
     quest_system.update()
 
-    input("> quest ended.(push any button)")
+    print("\nQuest completed!")
+    print(f"  {lost_sword_quest.name}")
+
+    input("\nPress Enter to continue...")
 
 def show_quests():
-    print("\n========== QUESTS ==========")
+    print("\n========== QUEST LOG ==========")
 
-    print("\nActive Quests:")
+    print("\nActive:")
     if not quest_system.active_quests:
-        print("  No active quests.")
+        print("  None")
     else:
         for quest in quest_system.active_quests:
-            print(f"  - {quest.name}")
+            print(f"  [ ] {quest.name}")
+            print(f"      {quest.description}")
 
-    print("\nCompleted Quests:")
+    print("\nCompleted:")
     if not quest_system.completed_quests:
-        print("  No completed quests.")
+        print("  None")
     else:
         for quest in quest_system.completed_quests:
-            print(f"  - {quest.name}")
+            print(f"  [✓] {quest.name}")
 
-    print("\n============================")
+    print("\n===============================")
 
 #-------------------------------------------------------------------------------------------------------------------------------------
 
@@ -147,6 +154,9 @@ def quest_listener(data):
     if data["item"] == sword:
         find_lost_sword.add_progress()
 
+        print("\nObjective updated!")
+        print(f"  Find the Lost Sword [{find_lost_sword.progress}/{find_lost_sword.amount}]")
+
 def quest_start_listener(data):
     if data["quest"] == lost_sword_quest:
         quest_system.add_quest(data["quest"])
@@ -188,7 +198,10 @@ def dialogue_while():
 #------------------------------------------------------------- Main ------------------------------------------------------------------
 
 
-if dialogue_while():
-    explore()
+dialogue_while()
+show_quests()
 
-    end_quest()
+explore()
+
+end_quest()
+show_quests()
