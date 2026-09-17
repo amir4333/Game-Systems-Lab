@@ -11,7 +11,7 @@ from systems.EventSystem.EventSystem import EventSystem
 
 #------------------------------------------------------------- States ----------------------------------------------------------------
 
-inventory = Inventory([])
+inventory = Inventory()
 quest_system = QuestSystem([])
 event_system = EventSystem()
 
