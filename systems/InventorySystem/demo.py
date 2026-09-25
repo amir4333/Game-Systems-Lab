@@ -1,5 +1,5 @@
 from Inventory import Inventory
-from Item import Item
+from ItemInstance import Item
 
 sword = Item("Sword")
 apple = Item("Apple")
