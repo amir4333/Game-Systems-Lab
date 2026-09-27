@@ -3,13 +3,12 @@ from Inventory import Inventory
 
 
 def print_inventory(inventory):
-    print("Inventory:")
+    print("\nInventory:")
     for index, slot in enumerate(inventory.slots):
         print(
             f"  Slot {index}: "
             f"{slot.item_definition.name} x{slot.quantity}"
         )
-    print()
 
 
 apple = ItemDefinition(
@@ -28,7 +27,8 @@ sword = ItemDefinition(
 
 inventory = Inventory()
 
-print("=== Add Items ===")
+
+print("=== ADD TESTS ===")
 
 inventory.add_item(apple, 3)
 print_inventory(inventory)
@@ -39,24 +39,31 @@ print_inventory(inventory)
 inventory.add_item(apple, 12)
 print_inventory(inventory)
 
-inventory.add_item(sword, 1)
+inventory.add_item(apple, 25)
+print_inventory(inventory)
+
+inventory.add_item(sword)
 print_inventory(inventory)
 
 
-print("=== Remove Items ===")
+print("\n=== REMOVE TESTS ===")
 
 removed = inventory.remove_item(apple, 5)
-print(f"Removed: {removed}")
+print(f"Requested: 5 | Removed: {removed}")
 print_inventory(inventory)
 
 removed = inventory.remove_item(apple, 10)
-print(f"Removed: {removed}")
+print(f"Requested: 10 | Removed: {removed}")
 print_inventory(inventory)
 
 removed = inventory.remove_item(apple, 100)
-print(f"Removed: {removed}")
+print(f"Requested: 100 | Removed: {removed}")
 print_inventory(inventory)
 
-removed = inventory.remove_item(sword, 1)
-print(f"Removed: {removed}")
+removed = inventory.remove_item(apple, 1)
+print(f"Requested: 1 | Removed: {removed}")
+print_inventory(inventory)
+
+removed = inventory.remove_item(sword)
+print(f"Requested: 1 | Removed: {removed}")
 print_inventory(inventory)
