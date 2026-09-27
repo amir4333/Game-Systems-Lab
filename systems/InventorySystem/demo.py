@@ -1,5 +1,5 @@
-from ItemDefinition import ItemDefinition
-from Inventory import Inventory
+from .ItemDefinition import ItemDefinition
+from .Inventory import Inventory
 
 
 def print_inventory(inventory):
@@ -70,3 +70,19 @@ print_inventory(inventory)
 removed = inventory.remove_item(sword)
 print(f"Requested: 1 | Removed: {removed}")
 print_inventory(inventory)
+
+
+print("\n=== EDGE CASES ===")
+
+print("Add 0:", inventory.add_item(apple, 0))
+print("Remove 0:", inventory.remove_item(apple, 0))
+
+try:
+    inventory.add_item(apple, -1)
+except ValueError as e:
+    print("Add -1:", e)
+
+try:
+    inventory.remove_item(apple, -1)
+except ValueError as e:
+    print("Remove -1:", e)

@@ -5,6 +5,12 @@ class Inventory:
         self.slots = []
     
     def add_item(self, item_definition, quantity=1):
+        if quantity < 0:
+            raise ValueError("quantity cannot be negative")
+
+        if quantity == 0:
+            return 0
+
         if not item_definition.stackable:
             while quantity:
                 self.slots.append(InventorySlot(item_definition, item_definition.max_stack))
@@ -32,6 +38,12 @@ class Inventory:
             self.slots.append(InventorySlot(item_definition, quantity))
 
     def remove_item(self, item_definition, count=1): 
+        if count < 0:
+            raise ValueError("count cannot be negative")
+
+        if count == 0:
+            return 0
+
         slot = self.get_slot(item_definition)
         if slot is not None:
 
