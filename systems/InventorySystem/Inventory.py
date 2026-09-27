@@ -1,4 +1,4 @@
-from InventorySlot import InventorySlot
+from .InventorySlot import InventorySlot
 
 class Inventory:
     def __init__(self):
@@ -11,7 +11,7 @@ class Inventory:
                 quantity -= 1
             return
 
-        slot = self.get_available_slot(item_definition)
+        slot = self.get_slot_with_space(item_definition)
         if slot is not None:
             if (slot.quantity + quantity) <= item_definition.max_stack:
                 slot.quantity += quantity
@@ -24,6 +24,7 @@ class Inventory:
                 if extra:
                     self.slots.append(InventorySlot(item_definition, extra))
             return
+        
         while quantity > item_definition.max_stack:
             self.slots.append(InventorySlot(item_definition, item_definition.max_stack))
             quantity -= item_definition.max_stack
@@ -61,7 +62,7 @@ class Inventory:
                 return slot
         return None
 
-    def get_available_slot(self, item_definition):
+    def get_slot_with_space(self, item_definition):
         for slot in self.slots: 
             if slot.item_definition.id == item_definition.id:
                 if slot.quantity < item_definition.max_stack:

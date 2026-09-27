@@ -45,6 +45,9 @@ print_inventory(inventory)
 inventory.add_item(sword)
 print_inventory(inventory)
 
+inventory.add_item(sword, 5)
+print_inventory(inventory)
+
 
 print("\n=== REMOVE TESTS ===")
 
